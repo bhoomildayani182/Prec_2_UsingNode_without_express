@@ -1,13 +1,45 @@
 const http = require("http");
-const httpserver = http.createServer(function (req, res) {
-    if (req.url == "/welcome") {
-        res.end("You are most welcome!");
-    } else if (req.url == "/22") {
-        res.end("Hello there, greetings from 20it022");
-    } else {
-    res.end("You are not supposed to redirect here!");
-}
+const dbconn = require("./dbconnect");
+const httpServer = http.createServer(function (req, res) {
+  if (req.url === "/listStudents") {
+    if (dbconn == "connected");
+    {
+      console.log("Connected");
+      q = "SELECT * FROM student limit 1";
+      dbconn.connection.query(q, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+      });
+    }
+    res.end("List of students");
+  } else if (req.url === "/updateStudent") {
+    if (dbconn == "connected");
+    {
+      console.log("Connected");
+      q = "UPDATE name FROM student where ID=50";
+      dbconn.connection.query(q, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+      });
+    }
+    res.end("updating student");
+  } else if (req.url === "/deleteStudent") {
+    if (dbconn == "connected");
+    {
+      console.log("Connected");
+      q = "DELETE * FROM student where ID=50";
+      dbconn.connection.query(q, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+      });
+    }
+    res.end("Deleting Student");
+  } else {
+    res.end("Improper request");
+  }
 });
-httpserver.listen(8080, () => {
+
+
+httpServer.listen(8080, () => {
     console.log("Listning on port 8080");
 });
